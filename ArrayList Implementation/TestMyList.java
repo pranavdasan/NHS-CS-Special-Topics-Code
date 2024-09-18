@@ -12,11 +12,16 @@ public class TestMyList {
 		// Create an arrayList
 		System.out.println("Test the ArrayList implementation");
 		MyList<Integer> l = new MyArrayList<Integer>();
-		test(l);
+		myTest(l);
 		System.out.println();
 		// l = new MyLinkedList<Integer>();
 		// System.out.println("\nTest the LinkedList implementation");
 		// test(l);
+	}
+
+	private static void myTest(MyList<Integer> l) {
+		l.add(2);
+		printList(l);
 	}
 
 	/** A series of list operations to test the implementations of MyList */
@@ -150,16 +155,16 @@ public class TestMyList {
 	/**
 	 * Prints the list (with get)
 	 */
-	private static <E> void printListWithGet(MyList<E> l) {
-		String s = "{";
-		if (l.size() > 0) // first element (no comma before it)
-			s += l.get(0);
-		for (int i = 1; i < l.size(); i++)
-			s += "," + l.get(i);
-		s += "}";
-		System.out.println(l.size() + " element" + ((l.size() > 1) ? "s" : "")
-				+ ": " + s);
-	}
+	// private static <E> void printListWithGet(MyList<E> l) {
+	// 	String s = "{";
+	// 	if (l.size() > 0) // first element (no comma before it)
+	// 		s += l.get(0);
+	// 	for (int i = 1; i < l.size(); i++)
+	// 		s += "," + l.get(i);
+	// 	s += "}";
+	// 	System.out.println(l.size() + " element" + ((l.size() > 1) ? "s" : "")
+	// 			+ ": " + s);
+	// }
 
 	/**
 	 * Returns a list as an instance of the given type
@@ -167,8 +172,8 @@ public class TestMyList {
 	private static <E> MyList<E> createMyList(Class c) {
 		if (c == MyArrayList.class) {
 			return new MyArrayList<E>();
-		} else if (c == MyLinkedList.class) {
-			return new MyLinkedList<E>();
+		// } else if (c == MyLinkedList.class) {
+		// 	return new MyLinkedList<E>();
 		} else {
 			return null;
 		}
