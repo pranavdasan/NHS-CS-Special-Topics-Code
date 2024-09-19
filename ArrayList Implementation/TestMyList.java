@@ -10,18 +10,13 @@ public class TestMyList {
 	/** Tests the two list implementations */
 	public static void main(String[] args) {
 		// Create an arrayList
-		System.out.println("Test the ArrayList implementation");
+		System.out.println("\nTest the ArrayList implementation: \n");
 		MyList<Integer> l = new MyArrayList<Integer>();
-		myTest(l);
+		test(l);
 		System.out.println();
 		// l = new MyLinkedList<Integer>();
 		// System.out.println("\nTest the LinkedList implementation");
 		// test(l);
-	}
-
-	private static void myTest(MyList<Integer> l) {
-		l.add(2);
-		printList(l);
 	}
 
 	/** A series of list operations to test the implementations of MyList */
@@ -33,6 +28,7 @@ public class TestMyList {
 
 		// Print l
 		printList(l);
+		System.out.println();
 
 		// Make a copy of l
 		System.out.println("Make a copy of the list");
@@ -43,6 +39,9 @@ public class TestMyList {
 		printList(copy);
 		System.out.println("the list and the copy are the same: "
 				+ l.equals(copy));
+
+		System.out.println();
+
 		System.out
 				.println("Change the copy (remove element at position 4 and add 18)");
 		copy.remove(4);
@@ -52,15 +51,27 @@ public class TestMyList {
 		System.out.println("the list and the copy are the same: "
 				+ l.equals(copy));
 
+		System.out.println();
+
 		// Remove and add an elemen
 		System.out.println("Could remove 10=" + l.remove(new Integer(10)));
 
+		System.out.println();
+
 		System.out.println("add 21 at position 5");
 		l.add(5, new Integer(21));
+
+		System.out.println();
+
 		System.out.println("print the list (using get)");
 		printListWithGet(l);
 
+		System.out.println();
+
 		System.out.println("5 has index " + l.indexOf(new Integer(5)));
+
+		System.out.println();
+
 		System.out.println("34 has index " + l.indexOf(new Integer(34)));
 
 		// Clear the list
@@ -78,6 +89,8 @@ public class TestMyList {
 		l.add(1, null);
 		printList(l);
 
+		System.out.println();
+
 		System.out.println("The index of null=" + l.indexOf(null));
 		System.out.println("The index of 1=" + l.indexOf(new Integer(1)));
 
@@ -88,6 +101,8 @@ public class TestMyList {
 			l.remove(0);
 			printList(l);
 		}
+
+		System.out.println();
 
 		// Create a new list
 		l.clear();
@@ -101,10 +116,14 @@ public class TestMyList {
 		l.remove(l.size() - 1);
 		printList(l);
 
+		System.out.println();
+
 		// Add another element
 		System.out.println("Add 100");
 		l.add(new Integer(100));
 		printList(l);
+
+		System.out.println();
 
 		// clear the list with an iterator
 		System.out
@@ -116,12 +135,16 @@ public class TestMyList {
 			printList(l);
 		}
 
+		System.out.println();
+
 		// A new list
 		System.out.print("A new list: l = ");
 		for (int i = 0; i < 5; i++) {
 			l.add(new Integer(i));
 		}
 		printList(l);
+
+		System.out.println();
 
 		// Should throw an exception
 		try {
@@ -131,7 +154,7 @@ public class TestMyList {
 			}
 			// should not get here
 			throw new RuntimeException("The test of the iterator has failed.");
-		} catch (IllegalStateException e) {
+		} catch (Exception e) {
 			System.out.println("Exception thrown as expected");
 		}
 
@@ -155,16 +178,16 @@ public class TestMyList {
 	/**
 	 * Prints the list (with get)
 	 */
-	// private static <E> void printListWithGet(MyList<E> l) {
-	// 	String s = "{";
-	// 	if (l.size() > 0) // first element (no comma before it)
-	// 		s += l.get(0);
-	// 	for (int i = 1; i < l.size(); i++)
-	// 		s += "," + l.get(i);
-	// 	s += "}";
-	// 	System.out.println(l.size() + " element" + ((l.size() > 1) ? "s" : "")
-	// 			+ ": " + s);
-	// }
+	private static <E> void printListWithGet(MyList<E> l) {
+		String s = "{";
+		if (l.size() > 0) // first element (no comma before it)
+			s += l.get(0);
+		for (int i = 1; i < l.size(); i++)
+			s += "," + l.get(i);
+		s += "}";
+		System.out.println(l.size() + " element" + ((l.size() > 1) ? "s" : "")
+				+ ": " + s);
+	}
 
 	/**
 	 * Returns a list as an instance of the given type
@@ -172,8 +195,8 @@ public class TestMyList {
 	private static <E> MyList<E> createMyList(Class c) {
 		if (c == MyArrayList.class) {
 			return new MyArrayList<E>();
-		// } else if (c == MyLinkedList.class) {
-		// 	return new MyLinkedList<E>();
+			// } else if (c == MyLinkedList.class) {
+			// return new MyLinkedList<E>();
 		} else {
 			return null;
 		}

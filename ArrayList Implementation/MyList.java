@@ -21,48 +21,48 @@ public interface MyList<E> extends Iterable<E> {
 	 */
 	public boolean add(E o);
 
-	// /**
-	//  * Empty this List
-	//  */
-	// public void clear();
+	/**
+	 * Empty this List
+	 */
+	public void clear();
 
-	// /**
-	//  * Returns the element at the specified position in this list.
-	//  */
-	// public E get(int index);
+	/**
+	 * Returns the element at the specified position in this list.
+	 */
+	public E get(int index);
 
-	// /**
-	//  * Returns the index of the specified element (-1 if there is no match)
-	//  */
-	// public int indexOf(Object o);
+	/**
+	 * Returns the index of the specified element (-1 if there is no match)
+	 */
+	public int indexOf(Object o);
 
-	// /**
-	//  * Returns true if this list contains the specified element.
-	//  */
-	// public boolean contains(Object o);
+	/**
+	 * Returns true if this list contains the specified element.
+	 */
+	public boolean contains(Object o);
 
-	// /**
-	//  * Remove the element in the List at position index
-	//  */
-	// public boolean remove(int index);
+	/**
+	 * Remove the element in the List at position index
+	 */
+	public boolean remove(int index);
 
-	// /**
-	//  * Remove the element in the List at position index
-	//  */
-	// public boolean remove(Object o);
+	/**
+	 * Remove the element in the List at position index
+	 */
+	public boolean remove(Object o);
 
-	// /**
-	//  * Add the specified object at the specified location
-	//  */
-	// public boolean add(int index, E o);
+	/**
+	 * Add the specified object at the specified location
+	 */
+	public boolean add(int index, E o);
 
-	// /**
-	//  * Is this List equal to the specified object?
-	//  */
-	// public boolean equals(Object o);
+	/**
+	 * Is this List equal to the specified object?
+	 */
+	public boolean equals(Object o);
 
-	// /**
-	//  * Returns an iterator over the elements in this list in proper sequence.
-	//  */
-	// public Iterator<E> iterator();
+	/**
+	 * Returns an iterator over the elements in this list in proper sequence.
+	 */
+	public Iterator<E> iterator();
 }

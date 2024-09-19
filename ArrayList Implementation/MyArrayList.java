@@ -22,8 +22,8 @@ public class MyArrayList<E> implements MyList<E> {
 	 * Constructs a MyArrayList with a specified capacity
 	 */
 	public MyArrayList(int initialCapacity) {
-		this.elements = (E[]) new Object[initialCapacity];
-		this.numElems = 0;
+		elements = (E[]) new Object[initialCapacity];
+		numElems = 0;
 	}
 
 	/**
@@ -37,7 +37,7 @@ public class MyArrayList<E> implements MyList<E> {
 	 * Returns the number of elements in this list.
 	 */
 	public int size() {
-		return this.numElems;
+		return numElems;
 	}
 
 	/**
@@ -51,138 +51,250 @@ public class MyArrayList<E> implements MyList<E> {
 	 * Appends the specified element to the end of this list
 	 */
 	public boolean add(E o) {
-		// If there is no room in the array items
-		// Make room for the new element
+		/* If there is no room in the array items
+		Make room for the new element 
+		*/
+		if (numElems < 0) {
+			throw new IndexOutOfBoundsException();
+		}
+		
+		if (numElems >= elements.length) {
+			ensureExtraCapacity(1);
+		}
 
 		// add the new element
-		this.elements[this.numElems] = o;
-		this.numElems++;
+		elements[numElems] = o;
+		numElems++;
 
 		return true;
 	}
 
-// 	/**
-// 	 * Empties this List
-// 	 */
-// 	public void clear() {
-// 	}
+	private void ensureExtraCapacity(int spaceToAdd){
+		if(numElems + spaceToAdd > elements.length){
+			int newAddedCapacity = elements.length * 2 + spaceToAdd;
+			E[] newElements = (E[]) new Object[newAddedCapacity];
 
-// 	/**
-// 	 * Returns the element at the specified position in this list.
-// 	 */
-// 	public E get(int index) {
-// 	}
+			// Copy values from old elements to newElements
+			for (int i = 0; i < numElems; i++) {
+				newElements[i] = elements[i];
+			}
 
-// 	/**
-// 	 * Returns the index of the specified element (-1 if there is no match)
-// 	 */
-// 	public int indexOf(Object o) {
-// 		// If o is null (look for a null element in the array)
-// 		if (o == null) {
-// 		} else // o is an object (use equals)
-// 		{
-// 		}
+			elements = newElements;
+		} 
+	}
 
-// 		// If we get here, o is not in the list
-// 	}
+	/**
+	 * Empties this List
+	 */
+	public void clear() {
+		for (int i = 0; i < numElems; i++) {
+			elements[i] = null;
+		}
 
-// 	/**
-// 	 * Returns true if this list contains the specified element.
-// 	 */
-// 	public boolean contains(Object o) {
-// 		// easy with indexOf
-// 	}
+		numElems = 0;
+	}
 
-// 	/**
-// 	 * Removes the element in the List at position index
-// 	 */
-// 	public boolean remove(int index) {
+	/**
+	 * Returns the element at the specified position in this list.
+	 */
+	public E get(int index) {
+		if(index < 0 || index >= numElems) {
+			throw new IndexOutOfBoundsException();
+		}
 
-// 		// compact the array
+		return (E) elements[index];
+	}
 
-// 		// let's gc do its work
+	/**
+	 * Returns the index of the specified element (-1 if there is no match)
+	 */
+	public int indexOf(Object o) {
+		// If o is null (look for a null element in the array)
+		for (int i = 0; i < numElems; i++) {
+			E element = this.get(i);
 
-// 	}
+			if (o == null && element == null) {
+				return i;
+			}
 
-// 	/**
-// 	 * Removes the element in the List at position index
-// 	 */
-// 	public boolean remove(Object o) {
-// 		// easy with indexOf and remove
-// 	}
+			if(element.equals(o)) {
+				return i;
+			}
+		}
 
-// 	/**
-// 	 * Adds the specified object at the specified location
-// 	 */
-// 	public boolean add(int index, E o) {
+		// If we get here, o is not in the list
+		return -1;
+	}
 
-// 		// one way: add at the end and then shift the elements around
-// 	}
+	/**
+	 * Returns true if this list contains the specified element.
+	 */
+	public boolean contains(Object o) {
+		// easy with indexOf
+		return this.indexOf(o) != -1;
+	}
 
-// 	/**
-// 	 * Is this List equal to the specified object?
-// 	 */
-// public boolean equals(Object o)
-//     {
-//         if (/* ???? */) {
-//             // o is an ArrayList
+	/**
+	 * Removes the element in the List at position index
+	 */
+	public boolean remove(int index) {
+		// Check if index is out of bounds
+		if (index < 0  || index >= numElems) {
+			throw new IndexOutOfBoundsException();
+		}
+		
+		for (int i = index+1; i < numElems; i++) {
+			elements[i-1] = elements[i];
+		}
 
-//             // if the number of elements is not the same, this and o are not the
-// 			// same
+		// let gc do its work
+		elements[numElems-1] = null;
 
-//             // Check the elements one by one
+		numElems--;
+		return true;
+	}
 
-//             // At this point, the lists are equal
+	/**
+	 * Removes the element in the List at position index
+	 */
+	public boolean remove(Object o) {
+		// easy with indexOf and remove
+		int removeIndex = this.indexOf(o);
 
-//         }
-// 		else {
-// 			return false;
-// 	    }
-// 	}
-// 	/**
-// 	 * An inner class to define the iterator
-// 	 */
-// 	private class MyIterator implements Iterator<E> {
-// 		private int index = 0;
+		if(removeIndex != -1) {
+			remove(removeIndex);
+			return true;
+		} else {
+			return false;
+		}
+	}
 
-// 		private MyArrayList<E> list;
+	/**
+	 * Adds the specified object at the specified location
+	 */
+	public boolean add(int index, E o) {
+		if (index < 0) {
+			throw new IndexOutOfBoundsException();
+		}
+		
+		// Adds space if needed
+		if (numElems >= elements.length) {
+			ensureExtraCapacity(1);
+		}
 
-// 		private int lastIndex = -1; // index of the object most recently visited
+		// Creates space for new element by sliding the rest to the right
+		for (int i = numElems-1; i >= index; i--) {
+			elements[i+1] = elements[i];
+		}
+		
+		numElems++;
 
-// 		// by next
+		// Adds element to space created
+		elements[index] = o;
 
-// 		/**
-// 		 * Create an iterator for a MyArrayList
-// 		 */
-// 		public MyIterator(MyArrayList<E> list) {
-// 		}
+		return true;
+	}
 
-// 		/**
-// 		 * Any element left in the list?
-// 		 */
-// 		public boolean hasNext() {
-// 		}
+	/**
+	 * Is this List equal to the specified object?
+	 */
+	public boolean equals(Object o) {
+        if (o  instanceof MyArrayList) {
+            // o is an ArrayList
+			MyArrayList otheArrayList = (MyArrayList<E>) o;
 
-// 		/**
-// 		 * Returns the current element in the list and move to the next element
-// 		 */
-// 		public E next() {
-// 		}
+            // if the number of elements is not the same, this and o are not the
+			// same
+			if (otheArrayList.size() != this.size()) {
+				return false;
+			} 
 
-// 		/**
-// 		 * Removes the last object returned by next
-// 		 */
-// 		public void remove() {
-// 		}
-// 	}
+            // Check the elements one by one
+			for(int i = 0; i < numElems; i++) {
+				E element = this.get(i);
+				E otherArrayElement = (E) otheArrayList.get(i);
 
-// 	/**
-// 	 * Returns an iterator over the elements in this list in proper sequence.
-// 	 * 
-// 	 * @return an iterator over the elements in this list in proper sequence.
-// 	 */
+				// Checks for null values (and handles edge case)
+				if(element == null && otherArrayElement != null) {
+					return false;
+				} else if (!element.equals(otherArrayElement)) {
+					return false;
+				}
+			}
+			
+
+            // At this point, the lists are equal
+			return true;
+
+        }
+		else {
+			return false;
+	    }
+	}
+
+	/**
+	 * An inner class to define the iterator
+	 */
+	private class MyIterator implements Iterator<E> {
+		private int index = 0;
+
+		private MyArrayList<E> list;
+
+		private int lastIndex = -1; // index of the object most recently visited
+
+		// by next
+
+		/**
+		 * Create an iterator for a MyArrayList
+		 */
+		public MyIterator(MyArrayList<E> list) {
+			this.list = list;
+		}
+
+		/**
+		 * Any element left in the list?
+		 */
+		public boolean hasNext() {
+			return index < numElems;
+		}
+
+		/**
+		 * Returns the current element in the list and move to the next element
+		 */
+		public E next() {
+			if(!hasNext()) {
+				throw new NoSuchElementException();
+			}
+
+			lastIndex = index;
+			E element = list.get(lastIndex);
+			index++;
+
+			return element;
+		}
+
+		/**
+		 * Removes the last object returned by next
+		 */
+		public void remove() {
+			if (lastIndex == -1) {
+				throw new IllegalStateException();
+			}
+			
+			list.remove(lastIndex);
+			index = lastIndex; 
+			lastIndex = -1; // Reset lastIndex to indicate no element is removable
+		}
+	}
+
+	/**
+	 * Returns an iterator over the elements in this list in proper sequence.
+	 * 
+	 * @return an iterator over the elements in this list in proper sequence.
+	 */
 	public Iterator<E> iterator() {
-		return null;
+		return new MyIterator(this);
+		
 	}
 }
 
