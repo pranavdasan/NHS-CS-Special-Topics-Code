@@ -35,6 +35,7 @@ public class MyArrayList<E> implements MyList<E> {
 
 	/**
 	 * Returns the number of elements in this list.
+	 * Big O: O(1)
 	 */
 	public int size() {
 		return numElems;
@@ -42,6 +43,7 @@ public class MyArrayList<E> implements MyList<E> {
 
 	/**
 	 * Returns true if this list contains no elements.
+	 * Big O: O(1)
 	 */
 	public boolean isEmpty() {
 		return this.size() == 0;
@@ -49,6 +51,7 @@ public class MyArrayList<E> implements MyList<E> {
 
 	/**
 	 * Appends the specified element to the end of this list
+	 * Big O: O(1)
 	 */
 	public boolean add(E o) {
 		/* If there is no room in the array items
@@ -57,7 +60,7 @@ public class MyArrayList<E> implements MyList<E> {
 		if (numElems < 0) {
 			throw new IndexOutOfBoundsException();
 		}
-		
+
 		if (numElems >= elements.length) {
 			ensureExtraCapacity(1);
 		}
@@ -69,6 +72,9 @@ public class MyArrayList<E> implements MyList<E> {
 		return true;
 	}
 
+	/* 
+	 * Big O: O(n)
+	 */
 	private void ensureExtraCapacity(int spaceToAdd){
 		if(numElems + spaceToAdd > elements.length){
 			int newAddedCapacity = elements.length * 2 + spaceToAdd;
@@ -85,6 +91,7 @@ public class MyArrayList<E> implements MyList<E> {
 
 	/**
 	 * Empties this List
+	 * Big O: O(n)
 	 */
 	public void clear() {
 		for (int i = 0; i < numElems; i++) {
@@ -96,6 +103,7 @@ public class MyArrayList<E> implements MyList<E> {
 
 	/**
 	 * Returns the element at the specified position in this list.
+	 * Big O: O(1)
 	 */
 	public E get(int index) {
 		if(index < 0 || index >= numElems) {
@@ -107,6 +115,7 @@ public class MyArrayList<E> implements MyList<E> {
 
 	/**
 	 * Returns the index of the specified element (-1 if there is no match)
+	 * Big O: O(n)
 	 */
 	public int indexOf(Object o) {
 		// If o is null (look for a null element in the array)
@@ -128,6 +137,7 @@ public class MyArrayList<E> implements MyList<E> {
 
 	/**
 	 * Returns true if this list contains the specified element.
+	 * Big O: O(1)
 	 */
 	public boolean contains(Object o) {
 		// easy with indexOf
@@ -136,6 +146,7 @@ public class MyArrayList<E> implements MyList<E> {
 
 	/**
 	 * Removes the element in the List at position index
+	 * Big O: O(n)
 	 */
 	public boolean remove(int index) {
 		// Check if index is out of bounds
@@ -156,6 +167,7 @@ public class MyArrayList<E> implements MyList<E> {
 
 	/**
 	 * Removes the element in the List at position index
+	 * Big O: O(n)
 	 */
 	public boolean remove(Object o) {
 		// easy with indexOf and remove
@@ -171,6 +183,7 @@ public class MyArrayList<E> implements MyList<E> {
 
 	/**
 	 * Adds the specified object at the specified location
+	 * Big O: O(n)
 	 */
 	public boolean add(int index, E o) {
 		if (index < 0) {
@@ -197,6 +210,7 @@ public class MyArrayList<E> implements MyList<E> {
 
 	/**
 	 * Is this List equal to the specified object?
+	 * Big O: O(n)
 	 */
 	public boolean equals(Object o) {
         if (o  instanceof MyArrayList) {
@@ -246,6 +260,7 @@ public class MyArrayList<E> implements MyList<E> {
 
 		/**
 		 * Create an iterator for a MyArrayList
+		 * Big O: O(1)
 		 */
 		public MyIterator(MyArrayList<E> list) {
 			this.list = list;
@@ -260,6 +275,7 @@ public class MyArrayList<E> implements MyList<E> {
 
 		/**
 		 * Returns the current element in the list and move to the next element
+		 * Big O: O(1)
 		 */
 		public E next() {
 			if(!hasNext()) {
@@ -275,6 +291,7 @@ public class MyArrayList<E> implements MyList<E> {
 
 		/**
 		 * Removes the last object returned by next
+		 * Big O: O(n)
 		 */
 		public void remove() {
 			if (lastIndex == -1) {
