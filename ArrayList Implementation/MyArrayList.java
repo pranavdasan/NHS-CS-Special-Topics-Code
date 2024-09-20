@@ -7,6 +7,20 @@ import java.util.NoSuchElementException;
  * source of the ArrayList class is available from Sun. Check it out).
  */
 
+
+/** 
+ * Project Reflection:
+ * i. Things I learned:
+ *    I learned how the ArrayList<> interface truly works, and the big O notation behind 
+ *    some of the core funcitons of the ArrayList<> interface
+ * ii. Difficulties I faced:
+ *    I had some trouble coding the Iterator<> class, because there wasn't much information about
+ *    it, and we didn't go over it deeply in class, so had to do a lot of research
+ * iii. AI Usage:
+ *    I didn't use AI to help me with this project, I mainly used Stack Overflow and GeeksforGeeks
+ */
+
+
 public class MyArrayList<E> implements MyList<E> {
 
 	// Use an array for the implementation
