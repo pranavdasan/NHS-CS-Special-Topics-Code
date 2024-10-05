@@ -1,7 +1,7 @@
 //CS Special Topics
 //LinkedList Lab
 
-//Name -
+//Name - Pranav D.
 
 public class ListNode implements Linkable
 {

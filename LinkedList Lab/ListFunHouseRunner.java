@@ -1,7 +1,7 @@
 //CS Special Topics
 //LinkedList Lab
 
-//Name -
+//Name - Pranav D.
 
 import java.util.*;
 import static java.lang.System.*;
