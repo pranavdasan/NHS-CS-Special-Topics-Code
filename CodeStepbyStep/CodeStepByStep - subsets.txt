@@ -1,0 +1,32 @@
+import java.util.ArrayList;
+import java.util.List;
+
+// Time Complexity: O(2^n * string length)
+// Space Complexity: O(N)
+public static void subsets(List<String> input) {
+    List<String> currentSubset = new ArrayList<>();
+    
+    generateSubsets(list, 0, currentSubset);
+}
+
+private static void generateSubsets(List<String> list, int index, List<String> currentSubset) {
+    //  If all the values have been covered, print the current subset
+    if (index == list.size()) {
+        System.out.println(currentSubset);
+        return;
+    }
+    
+    // Include the current element
+    currentSubset.add(list.get(index));
+
+    // Recurse to add the next one
+    generateSubsets(list, index + 1, currentSubset);
+    
+    // Backtrack
+    currentSubset.remove(currentSubset.size() - 1);
+
+    // Recurse to add the next one, but excludes the current one
+    generateSubsets(list, index + 1, currentSubset);
+}
+
+

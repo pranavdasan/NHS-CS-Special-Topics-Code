@@ -1,0 +1,14 @@
+// Time Complexity: O(N)
+// Space Complexity: O(1)
+public int height(TreeNode root) {
+    // Reached the end of the tree, so return 0
+    if (root == null) {
+        return 0;
+    }
+
+    // Gets the bigger length of the 2 subtrees, +1 is to account for the root
+    return Math.max(height(root.left), height(root.right)) + 1;
+}
+
+
+
