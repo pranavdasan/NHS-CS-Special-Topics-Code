@@ -1,0 +1,47 @@
+class Solution {
+    // Time Complexity: O(M*N)
+    // Space Complexity: O(M*N)
+    public boolean exist(char[][] board, String word) {
+        if (board == null || board.length == 0 || word == null || word.length() == 0) {
+            return false;
+        }
+
+        for (int row = 0; row < board.length; row++) {
+            for (int col = 0; col < board[0].length; col++) {
+                if (board[row][col] == word.charAt(0)) {
+                    if (dfs(board, row, col, word, 0)) {
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
+
+    private boolean dfs(char[][] board, int row, int col, String word, int letterIndex) {
+        // Checked all the letters of the word, return true
+        if (letterIndex == word.length()) {
+            return true;
+        }
+
+        if (row < 0 || row >= board.length || col < 0 || col >= board[0].length || board[row][col] != word.charAt(letterIndex)) {
+            return false;
+        }
+
+        char temp = word.charAt(letterIndex);
+        board[row][col] = '#'; // Mark as visited
+
+        
+        // Explore the neighbors in 4 possible directions: down, up, right, left
+        boolean found = dfs(board, row + 1, col, word, letterIndex + 1) ||
+                        dfs(board, row - 1, col, word, letterIndex + 1) ||
+                        dfs(board, row, col + 1, word, letterIndex + 1) ||
+                        dfs(board, row, col - 1, word, letterIndex + 1);
+
+        // Reset the location if the word wasn't found (backtracking)
+         board[row][col] = temp;
+
+        return found;
+    }
+}

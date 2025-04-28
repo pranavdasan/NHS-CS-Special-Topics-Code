@@ -1,0 +1,30 @@
+class Solution {
+    // Time Complexity: O(n!)
+    // Space Complexity: O(n)
+    public List<List<Integer>> permute(int[] nums) {
+        List<List<Integer>> permutationList = new ArrayList<>();
+
+        if (nums == null || nums.length == 0) {
+            return permutationList;
+        }
+
+        backtrack(new ArrayList<>(), permutationList, nums);
+
+        return permutationList;
+    }
+
+    private void backtrack(ArrayList<Integer> curPerumutation,  List<List<Integer>> permutationList, int[] nums) {
+        if (curPerumutation.size() == nums.length) { // Base Case: When to collect result
+            permutationList.add(new ArrayList<>(curPerumutation));
+        } else {
+            for(int i = 0; i < nums.length; i++) { 
+                if (curPerumutation.contains(nums[i])) {
+                    continue; // Number is already in permutation so skip it
+                } 
+                curPerumutation.add(nums[i]);
+                backtrack(curPerumutation, permutationList, nums);
+                curPerumutation.remove(curPerumutation.size() - 1);
+            }
+        }
+    }
+}

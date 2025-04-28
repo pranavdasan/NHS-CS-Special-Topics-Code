@@ -1,0 +1,46 @@
+class Solution {
+    // Time Complexity: O(N)/O(V)
+    // Space Complexity: O(N)/O(V)
+    public List<List<Integer>> levelOrder(TreeNode root) {
+        List<List<Integer>> result =  new ArrayList<>();
+
+        if (root == null) {
+            return result;
+        }
+
+        Queue<TreeNode> queue = new ArrayDeque<>();
+
+        //Step 1: Initialization
+        queue.offer(root);
+
+        while(!queue.isEmpty()) {
+            // Step 2: Get size
+            int size = queue.size();
+            List<Integer> currentLevelNodes = new ArrayList<>();
+
+            for (int i = 0; i < size; i++) {
+                //Step 3: Expansion/Dequeue
+                TreeNode currentNode = queue.poll();
+
+                // Step 4: Process it, add it to the result
+                currentLevelNodes.add(currentNode.val);
+
+                // Step 5: Generation/enqueue
+                if (currentNode.left != null) {
+                    queue.offer(currentNode.left);
+                }
+
+                if (currentNode.right != null) {
+                    queue.offer(currentNode.right);
+                }
+            }
+
+            result.add(currentLevelNodes);
+
+        }
+        
+        return result;
+    }
+
+    
+}

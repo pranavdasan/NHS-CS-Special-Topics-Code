@@ -1,0 +1,31 @@
+
+class Solution {
+    // Time Complexity: O(V)
+    // Space Complexity: O(V)
+    public List<Integer> inorderTraversal(TreeNode root) {
+        List<Integer> inorderList = new ArrayList<>();
+        if (root == null) {
+            return inorderList;
+        }
+
+
+        inorderTraversal(root, inorderList);
+        return inorderList;
+    }
+
+    private void inorderTraversal(TreeNode node, List<Integer> inorderList) {
+        // Check if base case, this means the last node was a leaf node
+        if(node == null) {
+            return;
+        }
+
+        // Recurse through left branch/node
+        inorderTraversal(node.left, inorderList);
+        
+        // Add root node of the tree/sub-tree
+        inorderList.add(node.val);
+        
+        // Recurse through right branch/node
+        inorderTraversal(node.right, inorderList);
+    }
+}

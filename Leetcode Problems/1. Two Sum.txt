@@ -1,0 +1,36 @@
+
+
+class Solution {
+    public int[] twoSum(int[] nums, int target) {
+        /**
+        * HashMap Method
+        * It adds number, index pairs into the map
+        * While checking for the difference between the target 
+        * and number exists in the HashMap
+        * Big O: O(n)
+        * Space Complexity: O(n)
+        */
+
+        HashMap<Integer, Integer> intMap = new HashMap<Integer, Integer>();
+
+        // Iterates through the nums
+        for (int i = 0; i < nums.length; i++) {
+            // The other possible number to add up to the target
+            int difference = target - nums[i];
+            
+            // Check if the HashMap has the possible number
+            if (intMap.containsKey(difference)) {
+                // Return the indexes of the numbers
+                return new int[]{intMap.get(difference), i};
+            } 
+
+            // Put the number and it's index into the HashMap
+            intMap.put(nums[i], i);
+
+        }
+
+        // There is no Two Sum, so return null
+        return null;
+    }
+
+}

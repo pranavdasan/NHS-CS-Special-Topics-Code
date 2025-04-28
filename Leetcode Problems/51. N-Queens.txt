@@ -1,0 +1,67 @@
+class Solution {
+    // Time Complexity: O(n!)
+    // Space Complexity: O(n^2)
+    public List<List<String>> solveNQueens(int n) {
+        List<List<String>> validSolutions = new ArrayList<>();  
+        char[][] board = new char[n][n];  // Creates an nxn board
+        
+        // Fill the board with dots
+        for (int i = 0; i < n; i++) {
+            Arrays.fill(board[i], '.');
+        }
+        
+        solveNQueens(n, validSolutions, board, 0); // Start solving from row 0
+        return validSolutions;
+    }
+
+    private void solveNQueens(int n, List<List<String>> validSolutions, char[][] board, int row) {
+        // Found a solution 
+        if (row == n) {
+            List<String> solution = new ArrayList<>();
+            for (char[] boardRow : board) {
+                solution.add(new String(boardRow));
+            }
+            validSolutions.add(solution);
+            return;
+        }
+
+        // Tries queen in every column
+        for (int col = 0; col < n; col++) {
+            if (isValid(n, board, row, col)) {
+                board[row][col] = 'Q';  // Place the queen
+
+                // Add the next queen
+                solveNQueens(n, validSolutions, board, row + 1);
+
+                // Backtrack in order to find other solutions
+                board[row][col] = '.';
+            }
+        }
+    }
+
+    private boolean isValid(int n, char[][] board, int row, int col) {
+        // Column check
+        for (int i = 0; i < n; i++) {
+            if (board[i][col] == 'Q') {
+                return false;
+            }
+        }
+
+        // Left diagonal check
+        for (int i = row - 1, j = col - 1; i >= 0 && j >= 0; i--, j--) {
+            if (board[i][j] == 'Q') {
+                return false;
+            }
+        }
+
+        // Right diagonal check
+        for (int i = row - 1, j = col + 1; i >= 0 && j < n; i--, j++) {
+            if (board[i][j] == 'Q') {
+                return false;
+            }
+        }
+
+        // Valid posistion
+        return true;
+    }
+}

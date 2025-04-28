@@ -1,0 +1,41 @@
+class Solution {
+    // Time Complexity: O(n log n)
+    // Space Complexity: O(n)
+    public int lengthOfLongestSubstring(String s) {
+        int longestLength = 0; 
+        HashMap<Character, Integer> substringMap = new HashMap<Character, Integer>();
+
+        // Iterates through the whole string (multiple times sometimes)
+        for (int i = 0; i < s.length(); i++) {
+            char currChar = s.charAt(i); // Gets the character
+            
+            // See's if the character is in the map, if so that means the substring is over
+            if (substringMap.containsKey(currChar)) { 
+                // Figure out if the current substring is longer 
+                // than the length of the current longest one
+                if (substringMap.size() > longestLength) {
+                    longestLength = substringMap.size();
+                }
+
+                // Update the index we're checking next 
+                //to be the one after wherever the duplicate char was
+                // This finds where to start the new substring
+                i = substringMap.get(currChar) + 1;
+                
+                // Clear the map so we can test new substring
+                substringMap.clear();
+            } 
+
+            // Add on to the substring (whether its already started or new)
+            substringMap.put(s.charAt(i), i);   
+        }
+
+        // Check if the last substring is longer than the current longest length
+        if (substringMap.size() > longestLength) {
+            longestLength = substringMap.size();
+        } 
+
+        // Return the longest length found for a substring
+        return longestLength;
+    }
+}
