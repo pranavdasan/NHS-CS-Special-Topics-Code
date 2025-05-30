@@ -1,0 +1,73 @@
+/**
+    Dynamic Programming:
+       Dynamic programming is a systematic way to solve problems by:
+            1. Breaking down the complex problem into smaller subproblems 
+                (in essence, this is what finding the induction rules does)
+            2. Finding solutions to these subproblems
+            3. Combining these solutions to find the optimal solution to the original problem 
+
+    Base Case: The first number of the nums array will be the first max subarray as every
+                nums list will have atleast  one value. (Index of maxSubArray is maximum 
+                subarray value at that index in the nums arrray)
+
+                maxAtIndex[0] = nums[0] 
+    
+    Induction Rule:
+        Case 1: maxAtIndex[i - 1] >= 0
+            Continue with the subarray, so maxAtIndex[i] = maxAtIndex[i-1] + nums[i]
+        Case 2: maxAtIndex[i - 1] < 0
+            Start over, create a new subarray with maxAtIndex[i] = nums[i]
+ */
+
+class Solution {
+    // Time Complexity: O(N) (will take longer since it has to iterate twice)
+    // Space Complexity: O(N)
+     public int maxSubArray(int[] nums) {
+        int[] maxAtIndex = new int[nums.length];
+        maxAtIndex[0] = nums[0];
+
+        for (int i = 1; i < nums.length; i++) {
+            int prevMax = maxAtIndex[i-1];
+            int currNum = nums[i]; 
+
+            if (prevMax >= 0) { // Continue with subarray
+                maxAtIndex[i] = prevMax + currNum;
+            } else if (prevMax < 0) { // Start new subarray starting at current index
+                maxAtIndex[i] = currNum;
+            }
+        }
+
+        // Find the largest maximum subarray value
+        int maxSum = maxAtIndex[0]; 
+       for (int i = 1; i < maxAtIndex.length; i++) {
+           if (maxAtIndex[i] > maxSum) {
+               maxSum = maxAtIndex[i];
+           }
+       }
+       
+       return maxSum;
+    }
+
+    // Another approach (more efficent)
+    // Time Complexity: O(N)
+    // Space Complexity: O(1)
+    public int maxSubArray(int[] nums) {
+        int maxSum = nums[0];
+        int prevMax = nums[0];
+
+        // Iterate through entire array
+        for (int i = 1; i < nums.length; i++) {
+            if (prevMax < 0) { // Start a new subarray
+                prevMax = nums[i];
+            } else if (prevMax >= 0) { // Continue with the curent subarray max
+                prevMax += nums[i];
+            }
+
+            if (maxSum < prevMax) { // Check if we've found a bigger max subarray
+                maxSum = prevMax;
+            }
+        }
+
+        return maxSum;
+    }
+}
